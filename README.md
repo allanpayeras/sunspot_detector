@@ -1,0 +1,1 @@
+# sunspot_detector
