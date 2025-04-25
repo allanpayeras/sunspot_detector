@@ -3,7 +3,9 @@
 
 ## 1. Overview
 
-**Visible Sunspot Detector** is a Streamlit-based Python web application that downloads the latest (or user-specified) image of the Sun from NASA's SDO HMI dataset and uses computer vision techniques to detect and analyze sunspots. It estimates their physical dimensions and visibility from Earth and presents this information in an interactive interface.
+**Visible Sunspot Detector** is a Streamlit-based Python web application that obtains the latest (or user-specified) image of the Sun from NASA's SDO HMI dataset and uses computer vision techniques to detect and analyze sunspots. It estimates their physical dimensions and visibility from Earth and presents this information in an interactive interface.
+
+The application is currently deployed on https://sunspot-detector.streamlit.app
 
 
 ## 2. Description of the Sunspot Detection Method
