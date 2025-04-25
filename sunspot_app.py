@@ -119,6 +119,12 @@ def show_sun_image(sun: Sun):
         zoom_factor=10.0,
         increment=0.5,
     )
+    st.caption(
+        """<div style='text-align: right; font-size: 13px; margin-top: -20px;'>
+               Courtesy of NASA/SDO and the AIA, EVE, and HMI science teams.
+            </div>""",
+        unsafe_allow_html=True,
+    )
 
 
 def main():
