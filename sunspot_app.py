@@ -112,31 +112,21 @@ def show_sun_image(sun: Sun):
         if highlighted_ids:
             sun_img = sun.highlight_sunspots(highlighted_ids)
             
-    st.markdown(
-        """<style>
-            .sun-img-container img {
-            width: 100% !important;
-            height: auto !important;
-            }
-            </style>""",
-        unsafe_allow_html=True
-    )
-    st.markdown("<div class='sun-img-container'>", unsafe_allow_html=True)
-        
+    img_width = int(st.session_state.screen_width * 0.95)
     image_zoom(
         sun_img,
         mode="both",
+        size=img_width,
         keep_resolution=True,
         zoom_factor=10.0,
         increment=0.5,
     )
-    
-    st.markdown("</div>", unsafe_allow_html=True)
-    
     st.caption(
-        """<div style='text-align: right; font-size: 13px; margin-top: -20px;'>
+        """
+        <div style='text-align: right; font-size: 13px; margin-top: -20px;'>
                Courtesy of NASA/SDO and the AIA, EVE, and HMI science teams.
-            </div>""",
+        </div>
+        """,
         unsafe_allow_html=True,
     )
 
@@ -146,6 +136,27 @@ def main():
         layout="centered", page_icon="🌞", page_title="Visible Sunspot Detector"
     )
     st.title("Visible Sunspot Detector")
+    
+    # Detect screen width (JS to Streamlit)
+    st.markdown(
+    """
+    <script>
+        const w = window.innerWidth;
+        window.parent.postMessage({type: 'width', value: w}, '*');
+    </script>
+    """,
+    unsafe_allow_html=True
+    )
+
+    # Receive the width from Streamlit events
+    if "screen_width" not in st.session_state:
+        st.session_state.screen_width = 500
+
+    def process_event(event):
+        if event["type"] == "width":
+            st.session_state.screen_width = event["value"]
+
+    st.experimental_get_events(process_event)
 
     st.sidebar.header("Image Source")
     image_choice = st.sidebar.radio(
