@@ -5,3 +5,4 @@ requests
 pillow
 pandas
 streamlit-image-zoom
+streamlit-javascript
