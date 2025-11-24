@@ -69,14 +69,14 @@ def display_sunspots_table(df_sunspots: pd.DataFrame):
 
     column_order = [
         "id",
-        "diameter_km",
         "angular_size_arcmin",
+        "diameter_km",
         "visibility",
     ]
     column_config = {
         "id": "Sunspot ID",
-        "diameter_km": "Diameter (km)",
         "angular_size_arcmin": "Angular size (arcmin)",
+        "diameter_km": "Diameter (km)",
         "visibility": "Naked-eye visibility",
     }
 
@@ -126,7 +126,6 @@ def show_sun_image(sun: Sun):
     image_zoom(
         sun_img,
         mode="both",
-        size=None,
         keep_resolution=True,
         zoom_factor=10.0,
         increment=0.5,
