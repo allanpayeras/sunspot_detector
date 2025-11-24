@@ -111,25 +111,29 @@ def show_sun_image(sun: Sun):
         ]
         if highlighted_ids:
             sun_img = sun.highlight_sunspots(highlighted_ids)
-    st.markdown("""
-    <style>
-    .sun-img-container img {
-        width: 100% !important;
-        height: auto !important;
-    }
-    </style>
-    """, unsafe_allow_html=True)
-    
-    st.markdown("<div class='sun-img-container'>", unsafe_allow_html=True)
-    image_zoom(
-    sun_img,
-    mode="both",
-    size=None,
-    keep_resolution=True,
-    zoom_factor=10.0,
-    increment=0.5,
+            
+    st.markdown(
+        """<style>
+            .sun-img-container img {
+            width: 100% !important;
+            height: auto !important;
+            }
+            </style>""",
+        unsafe_allow_html=True
     )
+    st.markdown("<div class='sun-img-container'>", unsafe_allow_html=True)
+        
+    image_zoom(
+        sun_img,
+        mode="both",
+        size=None,
+        keep_resolution=True,
+        zoom_factor=10.0,
+        increment=0.5,
+    )
+    
     st.markdown("</div>", unsafe_allow_html=True)
+    
     st.caption(
         """<div style='text-align: right; font-size: 13px; margin-top: -20px;'>
                Courtesy of NASA/SDO and the AIA, EVE, and HMI science teams.
