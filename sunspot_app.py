@@ -102,6 +102,19 @@ def show_sun_image(sun: Sun):
             </div>""",
         unsafe_allow_html=True,
     )
+    
+    st.markdown(
+        """
+        <style>
+            /* Force the image inside streamlit-image-zoom to be responsive */
+            .stImageZoom img {
+            width: 100% !important;
+            height: auto !important;
+            }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
 
     sun_img = sun.annotated_img
     if "st_table" in st.session_state:
@@ -112,11 +125,10 @@ def show_sun_image(sun: Sun):
         if highlighted_ids:
             sun_img = sun.highlight_sunspots(highlighted_ids)
             
-    img_width = int(st.session_state.screen_width * 0.95)
     image_zoom(
         sun_img,
         mode="both",
-        size=img_width,
+        size=700,
         keep_resolution=True,
         zoom_factor=10.0,
         increment=0.5,
@@ -137,27 +149,6 @@ def main():
     )
     st.title("Visible Sunspot Detector")
     
-    # Detect screen width (JS to Streamlit)
-    st.markdown(
-    """
-    <script>
-        const w = window.innerWidth;
-        window.parent.postMessage({type: 'width', value: w}, '*');
-    </script>
-    """,
-    unsafe_allow_html=True
-    )
-
-    # Receive the width from Streamlit events
-    if "screen_width" not in st.session_state:
-        st.session_state.screen_width = 500
-
-    def process_event(event):
-        if event["type"] == "width":
-            st.session_state.screen_width = event["value"]
-
-    st.experimental_get_events(process_event)
-
     st.sidebar.header("Image Source")
     image_choice = st.sidebar.radio(
         "**Image source**",
