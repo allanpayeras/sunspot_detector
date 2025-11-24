@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 
 from sun import Sun
+from streamlit_javascript import st_javascript
 from datetime import datetime, timezone
 from streamlit_image_zoom import image_zoom
 from typing import List
@@ -102,19 +103,6 @@ def show_sun_image(sun: Sun):
             </div>""",
         unsafe_allow_html=True,
     )
-    
-    st.markdown(
-        """
-        <style>
-            /* Force the image inside streamlit-image-zoom to be responsive */
-            .stImageZoom img {
-            width: 100% !important;
-            height: auto !important;
-            }
-        </style>
-        """,
-        unsafe_allow_html=True
-    )
 
     sun_img = sun.annotated_img
     if "st_table" in st.session_state:
@@ -124,11 +112,13 @@ def show_sun_image(sun: Sun):
         ]
         if highlighted_ids:
             sun_img = sun.highlight_sunspots(highlighted_ids)
-            
+    
+    screen_width = st_javascript("window.innerWidth")
+    img_width = int(screen_width * 0.95)
     image_zoom(
         sun_img,
         mode="both",
-        size=700,
+        size=img_width,
         keep_resolution=True,
         zoom_factor=10.0,
         increment=0.5,
